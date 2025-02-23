@@ -423,6 +423,29 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     this.mouseY = rect.height * (1 - r); // DOMRects are upside down
   }
 
+
+  handleSerialMessage(val) {
+      const pitchMatch = val.match(/Pitch ([-]?\d+)/);
+      if (pitchMatch && pitchMatch.length == 2) {
+          this.receiveTiltPitch(parseInt(pitchMatch[1]));
+      }
+      const rollMatch = val.match(/Roll ([-]?\d+)/);
+      if (rollMatch && rollMatch.length == 2) {
+          this.receiveTiltRoll(parseInt(rollMatch[1]));
+      }
+      const knobMatch = val.match(/Knob (\d+) (\d+)/);
+      if (knobMatch && knobMatch.length == 3) {
+          const knobNum = parseInt(knobMatch[1]);
+          const knobVal = parseInt(knobMatch[2]);
+          if (knobNum == 0) {
+              this.receiveKnob0(knobVal);
+          }
+          if (knobNum == 1) {
+              this.receiveKnob1(knobVal);
+          }
+      }
+  }
+
   // Combines the copy/pasted code from shaderToy into our proper fragment shader
   combineFragmentShaderSources() {
     this.fsSource = this.fsPrefix + this.shaderToySource + this.fsPostfix;

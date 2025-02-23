@@ -290,6 +290,22 @@ class CustomMIDI extends HTMLElement {
       }
     }
 
+    // This can be overridden in a client application if a different messaging format is desired
+    handleSerialMessage = function(val) {
+        const noteOnMatch = val.match(/NoteOn (\d+) (\d+) (\d+)/);
+        if (noteOnMatch && noteOnMatch.length == 4) {
+            this.sendNoteOn(parseInt(noteOnMatch[1]), parseInt(noteOnMatch[2]), parseInt(noteOnMatch[3]));
+        }
+        const noteOffMatch = val.match(/NoteOff (\d+) (\d+) (\d+)/);
+        if (noteOffMatch && noteOffMatch.length == 4) {
+            this.sendNoteOff(parseInt(noteOffMatch[1]), parseInt(noteOffMatch[2]), parseInt(noteOffMatch[3]));
+        }
+        const controlChangeMatch = val.match(/ControlChange (\d+) (\d+) (\d+)/);
+        if (controlChangeMatch && controlChangeMatch.length == 4) {
+            this.sendControlChange(parseInt(controlChangeMatch[1]), parseInt(controlChangeMatch[2]), parseInt(controlChangeMatch[3]));
+        }
+    }
+
 }
   
 customElements.define('custom-midi', CustomMIDI);

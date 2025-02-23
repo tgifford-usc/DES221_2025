@@ -8,10 +8,6 @@
     /* set this to 'none' to hide the receive panel, or 'flex' to show it */
     --receive-panel-display: flex;
 
-    /* set this to 'none' to hide the log panel, or 'flex' to show it */
-    --log-panel-display: none;
-    
-
     /* these styles apply to the collapsed microbit component */
     /* --title-panel-color: rgb(250, 249, 249);
     --title-panel-border-style: none;
